@@ -15,6 +15,7 @@ using System.IO;
 using System.Xml.Linq;
 using static System.Formats.Asn1.AsnWriter;
 using Microsoft.Win32;
+using System.Runtime.CompilerServices;
 
 namespace Laba1_2
 {
@@ -121,8 +122,9 @@ namespace Laba1_2
     public void Load(string path)
     {
         //путь до папки содержащей изображения
-        string folder =
-       System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
+        string folder = @"C:\Users\Game - PC\Downloads\icons\icons\Weapon";
+
+       //System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
 
         //фильтр расширения изображения
         string filter = "*.png";
@@ -130,32 +132,11 @@ namespace Laba1_2
         string[] files = Directory.GetFiles(folder, filter);
         foreach (string file in files)
         {
-            //в file содержится путь до изображения с расширением .png
+            Console.WriteLine($"Найдено изображение: {file}"); //в file содержится путь до изображения с расширением .png
         }
-    }
-    public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
-    {
-        position = new Point(0, 0);
-        name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
-        icon = new Rectangle();
-        //установка цвета линии обводки и цвета заливки при помощи коллекции кистей
-        icon.Stroke = Brushes.Black;
-        ImageBrush ib = new ImageBrush();
-        //позиция изображения будет указана как координаты левого верхнего угла
-        //изображение будет растянуто по размерам прямоугольника, описанного вокруг фигуры
-        ib.AlignmentX = AlignmentX.Left;
-        ib.AlignmentY = AlignmentY.Top;
-        //загрузка изображения и назначение кисти
-        ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
-        icon.RenderTransform = new TranslateTransform(position.X, position.Y);
-        icon.Fill = ib;
-        //параметры выравнивания
-        icon.HorizontalAlignment = HorizontalAlignment.Left;
-        icon.VerticalAlignment = VerticalAlignment.Center;
-        //размеры прямоугольника
-        icon.Height = iconHeight;
-        icon.Width = iconWidth;
-    }
+    } 
+
+
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
         //получение координат мыши в координатах объекта Canvas с именем scene
@@ -182,7 +163,7 @@ namespace Laba1_2
         dlg.FileName = "Document"; // Default file name
         dlg.DefaultExt = ".txt"; // Default file extension
         dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
-                                                    //вызов диалога
+        Console.WriteLine()    //вызов диалога
         dlg.ShowDialog();
         //получение выбранного имени файла
         lb1.Content = dlg.FileName;
