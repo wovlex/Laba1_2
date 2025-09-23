@@ -17,5 +17,6 @@ public class CEnemyTemplateList
     public CEnemyTemplateList()
     {
         enemies = new List<CEnemyTemplate>();
+
     }
 }
