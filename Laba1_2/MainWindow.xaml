@@ -21,8 +21,8 @@ MouseDown="Window_MouseDown">
         <Button Content="   Load   " HorizontalAlignment="Left" Margin="65,380,0,0" VerticalAlignment="Top" Click="btvLoad" Height="20" Width="48"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="List of enemies:" VerticalAlignment="Top" Height="16" Width="82"/>
         <TextBox HorizontalAlignment="Left" Margin="10,31,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="130" Height="334"/>
-        <Button Content=" Add " Margin="149,380,87,0" VerticalAlignment="Top" Grid.Column="1" Height="20" />
-        <Button Content="  Remove  " Margin="220,380,20,0" VerticalAlignment="Top" Grid.Column="1" Height="20"/>
+        <Button Content=" Add " Margin="149,380,87,0" VerticalAlignment="Top" Grid.Column="1" Height="20" Name="btvAdd" Click="btvAdd_Click" />
+        <Button Content="  Remove  " Margin="220,380,20,0" VerticalAlignment="Top" Grid.Column="1" Height="20" Name="btvRemove" Click="btvRemove_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="Base life:" VerticalAlignment="Top" Height="16" Width="82" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="190,150,0,0" TextWrapping="Wrap" Text="Base gold:" VerticalAlignment="Top" Height="16" Width="82" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" Text="Enemy icon:" VerticalAlignment="Top" Height="16" Width="82" Grid.Column="1"/>
@@ -38,17 +38,8 @@ MouseDown="Window_MouseDown">
         <TextBox Margin="0,0,159,50" Grid.Column="1" Height="20" Width="124"/>
         <TextBox Margin="170,0,0,190" Grid.Column="1" Height="20" Width="124"/>
         <TextBox Margin="170,0,0,330" Grid.Column="1" Height="20" Width="124" Background="SlateGray"/>
-
-
-
-
-
-
-
-
-
-
-
+        <Canvas Margin="0,50,180,260" Grid.Column="1"/>
+        <Canvas Margin="10,10,10,179" Grid.Column="2" Name="scene" />
 
     </Grid>
 </Window>

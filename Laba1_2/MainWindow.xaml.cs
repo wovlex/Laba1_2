@@ -28,6 +28,47 @@ namespace Laba1_2
         {
             InitializeComponent();
         }
+
+        private void btvRemove_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btvAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btvSave(object sender, RoutedEventArgs e)
+        {
+            //создание диалога
+            OpenFileDialog dlg = new OpenFileDialog();
+            //настройка параметров диалога
+            dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".txt"; // Default file extension
+            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+                                                        //вызов диалога
+            dlg.ShowDialog();
+            //получение выбранного имени файла
+            lb1.Content = dlg.FileName;
+
+        }
+
+        private void btvLoad(object sender, RoutedEventArgs e)
+        {
+            {
+                //создание диалога
+                SaveFileDialog dlg = new SaveFileDialog();
+                //настройка параметров диалога
+                dlg.FileName = "Document"; // Default file name
+                dlg.DefaultExt = ".txt"; // Default file extension
+                dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+                                                            //вызов диалога
+                dlg.ShowDialog();
+                //получение выбранного имени файла
+                lb1.Content = dlg.FileName;
+            }
+        }
     }
 
     public class Person
@@ -118,56 +159,30 @@ namespace Laba1_2
                 Console.WriteLine($"Age: {person.getAge()}, Name: {person.getFirstName()} {person.getSecondName()}, Height: {person.getHeight()}");
             }
         }
-    }
+    
     public void Load(string path)
-    {
-        //путь до папки содержащей изображения
-        string folder = @"C:\Users\Game - PC\Downloads\icons\icons\Weapon";
-
-       //System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
-
-        //фильтр расширения изображения
-        string filter = "*.png";
-        //получение массива строк содержащих пути до изображений
-        string[] files = Directory.GetFiles(folder, filter);
-        foreach (string file in files)
         {
-            Console.WriteLine($"Найдено изображение: {file}"); //в file содержится путь до изображения с расширением .png
+            //путь до папки содержащей изображения
+            string folder = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
+            //фильтр расширения изображения
+            string filter = "*.png";
+            //получение массива строк содержащих пути до изображений
+            string[] files = Directory.GetFiles(folder, filter);
+            foreach (string file in files)
+            {
+                Console.WriteLine($"Найдено изображение: {file}"); //в file содержится путь до изображения с расширением .png
+            }
         }
-    } 
 
 
-    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        //получение координат мыши в координатах объекта Canvas с именем scene
-        Point mousePosition = Mouse.GetPosition(scene);
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //получение координат мыши в координатах объекта Canvas с именем scene
+            Point mousePosition = Mouse.GetPosition(scene);
+
+        }
+       
+
+
     }
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        //создание диалога
-        OpenFileDialog dlg = new OpenFileDialog();
-        //настройка параметров диалога
-        dlg.FileName = "Document"; // Default file name
-        dlg.DefaultExt = ".txt"; // Default file extension
-        dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
-                                                    //вызов диалога
-        dlg.ShowDialog();
-        //получение выбранного имени файла
-        lb1.Content = dlg.FileName;
-    }
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        //создание диалога
-        SaveFileDialog dlg = new SaveFileDialog();
-        //настройка параметров диалога
-        dlg.FileName = "Document"; // Default file name
-        dlg.DefaultExt = ".txt"; // Default file extension
-        dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
-        Console.WriteLine()    //вызов диалога
-        dlg.ShowDialog();
-        //получение выбранного имени файла
-        lb1.Content = dlg.FileName;
-    }
-
-
 }
