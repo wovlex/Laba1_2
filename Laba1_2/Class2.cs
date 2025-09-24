@@ -30,7 +30,7 @@ namespace Laba1_2
         {
             width = iconWidth;
             height = iconHeight;
-            CreateIcon(imagePath);
+            CreateIcon(iconWidth, iconHeight, imagePath);
         }
         public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
         {

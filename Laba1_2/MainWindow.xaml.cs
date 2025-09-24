@@ -1,6 +1,10 @@
-﻿using System.Text;
-using System.Text.Json.Serialization;
+﻿using Microsoft.Win32;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,12 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
-using System.IO;
 using System.Xml.Linq;
+using static Laba1_2.Class3;
 using static System.Formats.Asn1.AsnWriter;
-using Microsoft.Win32;
-using System.Runtime.CompilerServices;
 
 namespace Laba1_2
 {
@@ -27,6 +28,38 @@ namespace Laba1_2
         public MainWindow()
         {
             InitializeComponent();
+
+            WPFtest();
+        }
+
+        public void WPFtest()
+        {
+            // Тестирование сериализации
+            TestSerialization();
+
+            // Тестирование десериализации
+            TestDeserialization();
+
+            //// Запуск WPF приложения
+            //var app = new Application();
+            //app.Run(new MainWindow());
+        }
+
+        static void TestSerialization()
+        {
+            // Создаем список экземпляров класса Person
+            List<Person> people = new List<Person>();
+            people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
+            people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
+            people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
+
+            // Сериализация списка в JSON
+            string jsonString = JsonSerializer.Serialize(people);
+
+            // Сохранение JSON в файл
+            File.WriteAllText("people.json", jsonString);
+
+            Console.WriteLine("Сериализация завершена. Файл people.json создан.");
         }
 
         private void btvRemove_Click(object sender, RoutedEventArgs e)
@@ -50,7 +83,7 @@ namespace Laba1_2
                                                         //вызов диалога
             dlg.ShowDialog();
             //получение выбранного имени файла
-            lb1.Content = dlg.FileName;
+            //lb1.Content = dlg.FileName;
 
         }
 
@@ -66,70 +99,11 @@ namespace Laba1_2
                                                             //вызов диалога
                 dlg.ShowDialog();
                 //получение выбранного имени файла
-                lb1.Content = dlg.FileName;
+                // lb1.Content = dlg.FileName;
             }
         }
-    }
 
-    public class Person
-    {
-        [JsonInclude] //Атрибут будет сохранен в json
-        int age;
-        [JsonInclude]
-        string first_name;
-        [JsonInclude]
-        string second_name;
-        [JsonInclude]
-        double height;
-
-        public Person(int Age, string FName, string SName, double Height)
-        {
-            age = Age;
-            first_name = FName;
-            second_name = SName;
-            height = Height;
-        }
-
-        public int getAge() { return age; }
-        public string getFirstName() { return first_name; }
-        public string getSecondName() { return second_name; }
-        public double getHeight() { return height; }
-    }
-
-    internal class Program
-    {
-        [STAThread] // Добавьте этот атрибут для WPF приложений
-        static void Main(string[] args)
-        {
-            // Тестирование сериализации
-            TestSerialization();
-
-            // Тестирование десериализации
-            TestDeserialization();
-
-            // Запуск WPF приложения
-            var app = new Application();
-            app.Run(new MainWindow());
-        }
-
-        static void TestSerialization()
-        {
-            // Создаем список экземпляров класса Person
-            List<Person> people = new List<Person>();
-            people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
-            people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
-            people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
-
-            // Сериализация списка в JSON
-            string jsonString = JsonSerializer.Serialize(people);
-
-            // Сохранение JSON в файл
-            File.WriteAllText("people.json", jsonString);
-
-            Console.WriteLine("Сериализация завершена. Файл people.json создан.");
-        }
-
-        static void TestDeserialization()
+        void TestDeserialization()
         {
             // Чтение JSON из файла
             string jsonFromFile = File.ReadAllText("people.json");
@@ -156,11 +130,13 @@ namespace Laba1_2
             // Вывод данных на экран
             foreach (var person in people)
             {
-                Console.WriteLine($"Age: {person.getAge()}, Name: {person.getFirstName()} {person.getSecondName()}, Height: {person.getHeight()}");
+
+                Listof.Items.Add($"Age: {person.getAge()}, Name: {person.getFirstName()} {person.getSecondName()}, Height: {person.getHeight()}");
             }
+
         }
-    
-    public void Load(string path)
+
+        public void Load(string path)
         {
             //путь до папки содержащей изображения
             string folder = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + path;
@@ -170,7 +146,7 @@ namespace Laba1_2
             string[] files = Directory.GetFiles(folder, filter);
             foreach (string file in files)
             {
-                Console.WriteLine($"Найдено изображение: {file}"); //в file содержится путь до изображения с расширением .png
+                MessageBox.Show($"Найдено изображение: {file}"); //в file содержится путь до изображения с расширением .png
             }
         }
 
@@ -181,7 +157,7 @@ namespace Laba1_2
             Point mousePosition = Mouse.GetPosition(scene);
 
         }
-       
+
 
 
     }
