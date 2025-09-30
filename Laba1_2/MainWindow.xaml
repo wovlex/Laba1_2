@@ -12,7 +12,6 @@ MouseDown="Window_MouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="153*"/>
             <ColumnDefinition Width="202*"/>
-
             <ColumnDefinition Width="206*"/>
 
         </Grid.ColumnDefinitions>

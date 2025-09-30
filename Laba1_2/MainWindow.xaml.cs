@@ -29,16 +29,13 @@ namespace Laba1_2
         {
             InitializeComponent();
 
-            WPFtest();
+      
         }
 
         public void WPFtest()
         {
             // Тестирование сериализации
-            TestSerialization();
-
-            // Тестирование десериализации
-            TestDeserialization();
+    
 
             //// Запуск WPF приложения
             //var app = new Application();

@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="C:\Users\Game-PC\Downloads\MainWindow.xaml" Link="MainWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="icons\" />
   </ItemGroup>
 
 </Project>
