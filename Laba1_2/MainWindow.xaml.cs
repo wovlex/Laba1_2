@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -29,20 +30,38 @@ namespace Laba1_2
         {
             InitializeComponent();
 
-      
+            WPFtest();
         }
 
-        public void WPFtest()
+        public void DisplayEnemyInfo(CEnemyTemplate enemy)
         {
-            // Тестирование сериализации
-    
+            _name.Text = enemy.Name();
+            _iconName.Text = enemy.IconName();
+            _life.Text = enemy.BaseLife().ToString();
+            _lifeMod.Text = enemy.LifeModifier().ToString();
+            _gold.Text = enemy.BaseGold().ToString();
+            _goldMod.Text = enemy.GoldModifier().ToString();
+            _spawn.Text = enemy.SpawnChance().ToString();
 
-            //// Запуск WPF приложения
-            //var app = new Application();
-            //app.Run(new MainWindow());
-        }
+            string icon_name = enemy.IconName().Replace(".png", "");
 
-        static void TestSerialization()
+            CIcon iconnn = iniicon.findByName(icon_name);
+
+            scene.Children.Clear();
+            if (iconnn != null)
+            {
+                Rectangle samaicon = iconnn.getIcon();
+                Rectangle twoiconss = new Rectangle
+                {
+                    Width = samaicon.Width,
+                    Height = samaicon.Height,
+                    Fill = samaicon.Fill
+                };
+
+                scene.Children.Add(twoiconss);
+            }
+
+            static void TestSerialization()
         {
             // Создаем список экземпляров класса Person
             List<Person> people = new List<Person>();
@@ -152,10 +171,82 @@ namespace Laba1_2
         {
             //получение координат мыши в координатах объекта Canvas с именем scene
             Point mousePosition = Mouse.GetPosition(scene);
+            CIcon cliIcon = iniicon.isMouseOver(mousePosition);
+            if (cliIcon != null)
+            {
+                string iconName = cliIcon.Name();
+                _iconName.Text = iconName + ".png";
+                scene.Children.Clear();
 
+                Rectangle twoiconss = new Rectangle
+                {
+                    Width = cliIcon.getIcon().Width,
+                    Height = cliIcon.getIcon().Height,
+                    Fill = cliIcon.getIcon().Fill
+                };
+                scene.Children.Add(twoiconss);
+            }
         }
 
+        private void LoadIcons()
+        {
+            // Проверяем доступность Canvas
+            if (scene == null)
+            {
+                MessageBox.Show("Canvas 'scene' не найден!");
+                return;
+            }
 
+            // Очищаем Canvas
+            scene.Children.Clear();
 
+            // Создаем простые цветные иконки
+            string[] iconNames = { "Sword", "Axe", "Bow", "Staff" };
+            Color[] colors = { Colors.Red, Colors.Blue, Colors.Green, Colors.Orange };
+
+            double x = 10;
+            double y = 10;
+
+            for (int i = 0; i < iconNames.Length; i++)
+            {
+                // Создаем прямоугольник как иконку
+                Rectangle icon = new Rectangle
+                {
+                    Width = 50,
+                    Height = 50,
+                    Fill = new SolidColorBrush(colors[i]),
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 2,
+                    Tag = iconNames[i]
+                };
+
+                // Позиционируем на Canvas
+                Canvas.SetLeft(icon, x);
+                Canvas.SetTop(icon, y);
+
+                // Добавляем на Canvas
+                scene.Children.Add(icon);
+
+                // Добавляем текст с названием
+                TextBlock text = new TextBlock
+                {
+                    Text = iconNames[i],
+                    Foreground = Brushes.Black,
+                    FontSize = 10,
+                    Width = 50,
+                    TextAlignment = TextAlignment.Center
+                };
+
+                Canvas.SetLeft(text, x);
+                Canvas.SetTop(text, y + 55);
+
+                scene.Children.Add(text);
+
+                // Сдвигаем позицию для следующей иконки
+                x += 60;
+            }
+
+            MessageBox.Show($"Добавлено {iconNames.Length} иконок на Canvas!");
+        }
     }
 }

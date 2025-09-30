@@ -55,6 +55,7 @@ namespace Laba1_2
             icon.Height = iconHeight;
             icon.Width = iconWidth;
         }
+
     }
 
 
