@@ -10,9 +10,6 @@ using System.Windows.Media.Imaging;
 
 namespace Laba1_2
 {
-    internal class Class2
-    {
-    }
     public class CIcon
     {
         private Point position;
@@ -25,6 +22,11 @@ namespace Laba1_2
         public Point Position => position;
         public string Name => name;
         public Rectangle Icon => icon;
+        private Rectangle iconRectangle;
+        public Rectangle getIcon()
+        {
+            return iconRectangle;
+        }
 
         public CIcon(int iconWidth, int iconHeight, string imagePath)
         {
@@ -55,7 +57,10 @@ namespace Laba1_2
             icon.Height = iconHeight;
             icon.Width = iconWidth;
         }
-
+        public CIcon isMouseOver(Point position)
+        {
+          
+        }
     }
 
 

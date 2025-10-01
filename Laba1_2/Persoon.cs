@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Laba1_2
 {
-    internal class Class3
+    public class Person
     {
 
-        public class Person
-        {
+        
+        
             [JsonInclude] //Атрибут будет сохранен в json
             int age;
             [JsonInclude]
@@ -33,7 +33,7 @@ namespace Laba1_2
             public string getFirstName() { return first_name; }
             public string getSecondName() { return second_name; }
             public double getHeight() { return height; }
-        }
+        
     }
     
 }
