@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 
 namespace Laba1_2
 {
@@ -18,51 +19,60 @@ namespace Laba1_2
         private int width;
         private int height;
 
-        // Свойства для доступа к данным
         public Point Position => position;
         public string Name => name;
-        public Rectangle Icon => icon;
-        private Rectangle iconRectangle;
-        public Rectangle getIcon()
-        {
-            return iconRectangle;
-        }
+        public Rectangle GetIcon() => icon;
 
-        public CIcon(int iconWidth, int iconHeight, string imagePath)
+        public CIcon(int iconWidth, int iconHeight, string imagePath, Point pos)
         {
             width = iconWidth;
             height = iconHeight;
+            position = pos;
             CreateIcon(iconWidth, iconHeight, imagePath);
         }
+
         public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
         {
             position = new Point(0, 0);
             name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
             icon = new Rectangle();
-            //установка цвета линии обводки и цвета заливки при помощи коллекции кистей
+
+            // Установка цвета линии обводки
             icon.Stroke = Brushes.Black;
-            ImageBrush ib = new ImageBrush();
-            //позиция изображения будет указана как координаты левого верхнего угла
-            //изображение будет растянуто по размерам прямоугольника, описанного вокруг фигуры
-            ib.AlignmentX = AlignmentX.Left;
-            ib.AlignmentY = AlignmentY.Top;
-            //загрузка изображения и назначение кисти
-            ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
-            icon.RenderTransform = new TranslateTransform(position.X, position.Y);
-            icon.Fill = ib;
-            //параметры выравнивания
+            icon.StrokeThickness = 1;
+
+            // Загрузка изображения
+            try
+            {
+                ImageBrush ib = new ImageBrush();
+                ib.AlignmentX = AlignmentX.Left;
+                ib.AlignmentY = AlignmentY.Top;
+                ib.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                icon.Fill = ib;
+            }
+            catch (Exception ex)
+            {
+                // Если не удалось загрузить изображение, используем цветную заливку
+                System.Windows.MessageBox.Show($"Ошибка загрузки изображения {imagePath}: {ex.Message}");
+                icon.Fill = Brushes.Gray; // ИСПРАВЛЕНО: используем SolidColorBrush напрямую
+            }
+
             icon.HorizontalAlignment = HorizontalAlignment.Left;
             icon.VerticalAlignment = VerticalAlignment.Center;
-            //размеры прямоугольника
             icon.Height = iconHeight;
             icon.Width = iconWidth;
+
+            // Устанавливаем позицию
+            Canvas.SetLeft(icon, position.X);
+            Canvas.SetTop(icon, position.Y);
         }
-        public CIcon isMouseOver(Point position)
+
+        public bool IsPointInside(Point point)
         {
-          
+            return point.X >= position.X && point.X <= position.X + width &&
+                   point.Y >= position.Y && point.Y <= position.Y + height;
         }
     }
-
 
 }
 
