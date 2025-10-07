@@ -33,7 +33,6 @@ namespace Laba1_2
 
             if (!Directory.Exists(folderPath))
             {
-                MessageBox.Show($"Папка не существует: {folderPath}");
                 return;
             }
 
@@ -42,7 +41,6 @@ namespace Laba1_2
 
             if (files.Length == 0)
             {
-                MessageBox.Show($"В папке {folderPath} не найдено PNG файлов");
                 return;
             }
 
@@ -52,22 +50,27 @@ namespace Laba1_2
 
             foreach (string file in files)
             {
-                Point position = new Point(x, y);
-                CIcon icon = new CIcon(iconWidth, iconHeight, file, position);
-                icons.Add(icon);
-
-                x += iconWidth + 10;
-                count++;
-
-                if (count >= columns)
+                try
                 {
-                    x = 10;
-                    y += iconHeight + 10;
-                    count = 0;
+                    System.Windows.Point position = new System.Windows.Point(x, y); // Явно указываем тип
+                    CIcon icon = new CIcon(iconWidth, iconHeight, file, position);
+                    icons.Add(icon);
+
+                    x += iconWidth + 10;
+                    count++;
+
+                    if (count >= columns)
+                    {
+                        x = 10;
+                        y += iconHeight + 10;
+                        count = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Пропускаем файлы с ошибками
                 }
             }
-
-            MessageBox.Show($"Загружено {icons.Count} иконок");
         }
 
         public CIcon findByName(string name)
@@ -75,11 +78,11 @@ namespace Laba1_2
             return icons.Find(icon => icon.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public CIcon IsMouseOver(Point position)
+        public CIcon IsMouseOver(System.Windows.Point mousePos) // Изменил имя параметра
         {
             foreach (var icon in icons)
             {
-                if (icon.IsPointInside(position))
+                if (icon.IsPointInside(mousePos))
                 {
                     return icon;
                 }

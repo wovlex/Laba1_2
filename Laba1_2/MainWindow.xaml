@@ -39,11 +39,6 @@ MouseDown="Window_MouseDown">
         <Canvas Margin="0,50,180,260" Grid.Column="1"/>
         <Canvas Margin="10,10,10,179" Grid.Column="2" Name="scene" Background="White" Height="300"/>
         <ListBox HorizontalAlignment="Left" Margin="10,31,0,0"  VerticalAlignment="Top" Width="130" Height="334" Name="Listof" SelectionChanged="Listof_SelectionChanged"/>
-        <ItemGroup>
-            <Content Include="icons\**\*.png">
-                <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            </Content>
-        </ItemGroup>
     </Grid>
 </Window>
 

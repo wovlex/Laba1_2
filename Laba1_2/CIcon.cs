@@ -33,7 +33,6 @@ namespace Laba1_2
 
         public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
         {
-            position = new Point(0, 0);
             name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
             icon = new Rectangle();
 
@@ -53,8 +52,7 @@ namespace Laba1_2
             catch (Exception ex)
             {
                 // Если не удалось загрузить изображение, используем цветную заливку
-                System.Windows.MessageBox.Show($"Ошибка загрузки изображения {imagePath}: {ex.Message}");
-                icon.Fill = Brushes.Gray; // ИСПРАВЛЕНО: используем SolidColorBrush напрямую
+                icon.Fill = Brushes.Gray;
             }
 
             icon.HorizontalAlignment = HorizontalAlignment.Left;
@@ -67,7 +65,7 @@ namespace Laba1_2
             Canvas.SetTop(icon, position.Y);
         }
 
-        public bool IsPointInside(Point point)
+        public bool IsPointInside(Point point) // System.Windows.Point
         {
             return point.X >= position.X && point.X <= position.X + width &&
                    point.Y >= position.Y && point.Y <= position.Y + height;

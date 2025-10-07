@@ -274,9 +274,9 @@ namespace Laba1_2
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (iniicon == null) return; // ДОБАВИЛ: проверку на null
+            if (iniicon == null) return;
 
-            Point mousePosition = Mouse.GetPosition(scene);
+            System.Windows.Point mousePosition = Mouse.GetPosition(scene); // Уже правильный тип
             CIcon clickedIcon = iniicon.IsMouseOver(mousePosition);
 
             if (clickedIcon != null)
@@ -284,7 +284,8 @@ namespace Laba1_2
                 string iconName = clickedIcon.Name;
                 _iconName.Text = iconName + ".png";
 
-                scene.Children.Clear();
+              
+
                 Rectangle displayIcon = new Rectangle
                 {
                     Width = clickedIcon.GetIcon().Width,
@@ -293,7 +294,7 @@ namespace Laba1_2
                     Stroke = Brushes.Black,
                     StrokeThickness = 1
                 };
-                Canvas.SetLeft(displayIcon, 50); // ДОБАВИЛ: позиционирование
+                Canvas.SetLeft(displayIcon, 50);
                 Canvas.SetTop(displayIcon, 50);
                 scene.Children.Add(displayIcon);
             }
