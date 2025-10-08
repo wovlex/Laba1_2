@@ -52,7 +52,7 @@ namespace Laba1_2
             {
                 try
                 {
-                    System.Windows.Point position = new System.Windows.Point(x, y); // Явно указываем тип
+                    System.Windows.Point position = new System.Windows.Point(x, y); 
                     CIcon icon = new CIcon(iconWidth, iconHeight, file, position);
                     icons.Add(icon);
 
@@ -68,7 +68,7 @@ namespace Laba1_2
                 }
                 catch (Exception ex)
                 {
-                    // Пропускаем файлы с ошибками
+                  
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace Laba1_2
             return icons.Find(icon => icon.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public CIcon IsMouseOver(System.Windows.Point mousePos) // Изменил имя параметра
+        public CIcon IsMouseOver(System.Windows.Point mousePos) 
         {
             foreach (var icon in icons)
             {

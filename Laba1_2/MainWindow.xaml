@@ -34,9 +34,9 @@
         <TextBox x:Name="_gold" Margin="170,0,0,50" Grid.Column="1" Height="20" Width="124"/>
         <TextBox x:Name="_life" Margin="0,0,159,50" Grid.Column="1" Height="20" Width="124"/>
         <TextBox x:Name="_name" Margin="170,0,0,190" Grid.Column="1" Height="20" Width="124"/>
-        <TextBox Margin="170,0,0,330" Grid.Column="1" Height="20" Width="124" Background="SlateGray" Name="_iconName"/>
-        <ListBox  x:Name="enemyListBox" Margin="0,50,180,260" Grid.Column="1" SelectionChanged="iconsListBox_SelectionChanged" />
-        <ListBox x:Name="iconsListBox" Margin="10,10,10,179" Grid.Column="2" Background="White" Height="300" SelectionChanged="iconsListBox_SelectionChanged"/>
+        <TextBox Margin="170,0,0,330" Grid.Column="1" Height="20" Width="124" Background="SlateGray" Name="_iconName" TextChanged="_iconName_TextChanged"/>
+        <Image  x:Name="enemyImage" Margin="0,50,180,260" Grid.Column="1"/>
+        <ListBox x:Name="iconsListBox" Margin="10,10,10,179" Grid.Column="2" Background="White" SelectionChanged="iconsListBox_SelectionChanged"/>
         <ListBox HorizontalAlignment="Left" Margin="10,31,0,0"  VerticalAlignment="Top" Width="130" Height="334" Name="Listof" SelectionChanged="Listof_SelectionChanged"/>
     </Grid>
 </Window>

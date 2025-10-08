@@ -82,43 +82,33 @@ namespace Laba1_2
             string icon_name = enemy.IconName.Replace(".png", "");
             CIcon iconnn = iniicon.findByName(icon_name);
 
-            //scene.Children.Clear();
 
             if (iconnn != null)
             {
-                Rectangle displayIcon = new Rectangle 
-                {
-                    Width = iconnn.GetIcon().Width,
-                    Height = iconnn.GetIcon().Height,
-                    Fill = iconnn.GetIcon().Fill,
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 1
-                };
-                Canvas.SetLeft(displayIcon, 50); 
-                Canvas.SetTop(displayIcon, 50);
-                //scene.Children.Add(displayIcon);
+                enemyImage.Source = new BitmapImage(new Uri(iconnn.Path));
+
             }
 
 
 
         }
 
-        static void TestSerialization()
-        {
-            // Создаем список экземпляров класса Person
-            List<Person> people = new List<Person>();
-            people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
-            people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
-            people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
+        //static void TestSerialization()
+        //{
+        //    // Создаем список экземпляров класса Person
+        //    List<Person> people = new List<Person>();
+        //    people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
+        //    people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
+        //    people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
 
-            // Сериализация списка в JSON
-            string jsonString = JsonSerializer.Serialize(people);
+        //    // Сериализация списка в JSON
+        //    string jsonString = JsonSerializer.Serialize(people);
 
-            // Сохранение JSON в файл
-            File.WriteAllText("people.json", jsonString);
+        //    // Сохранение JSON в файл
+        //    File.WriteAllText("people.json", jsonString);
 
-            Console.WriteLine("Сериализация завершена. Файл people.json создан.");
-        }
+        //    Console.WriteLine("Сериализация завершена. Файл people.json создан.");
+        //}
 
         private void btvRemove_Click(object sender, RoutedEventArgs e)
         {
@@ -140,12 +130,9 @@ namespace Laba1_2
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(_name.Text) || string.IsNullOrWhiteSpace(_iconName.Text))
-                {
-                    MessageBox.Show("Заполните название противника и имя иконки");
-                    return;
-                }
+               var enemy1 = enemyImage.Source;
 
+                iconsListBox.Items.Refresh();
                 var enemy = new CEnemyTemplate(
                     _name.Text,
                     _iconName.Text,
@@ -275,7 +262,7 @@ namespace Laba1_2
 
        
 
-        private void DisplayIcons() 
+        public void DisplayIcons() 
         {
             var icons = iniicon.GetIcons();
             foreach (var icon in icons)
@@ -285,21 +272,19 @@ namespace Laba1_2
                 iconsListBox.Items.Add(image);
             }
         }
-         private void EnemyIcons()
+         public void EnemyIcons()
         {
             var icons = iniicon.GetIcons();
             foreach (var icon in icons)
             {
                 Image imagee = new Image();
                 imagee.Source = new BitmapImage(new Uri(icon.Path));
-                enemyListBox.Items.Add(imagee);
+                //enemyListBox.Items.Add(imagee);
             }
         }
 
         private void LoadIcons()
         {
-
-            // Создаем простые цветные иконки
             string[] iconNames = { "Sword", "Axe", "Bow", "Staff" };
             Color[] colors = { Colors.Red, Colors.Blue, Colors.Green, Colors.Orange };
 
@@ -319,12 +304,7 @@ namespace Laba1_2
                     Tag = iconNames[i]
                 };
 
-                // Позиционируем на Canvas
-                Canvas.SetLeft(icon, x);
-                Canvas.SetTop(icon, y);
-
-                // Добавляем на Canvas
-                //scene.Children.Add(icon);
+            
 
                 // Добавляем текст с названием
                 TextBlock text = new TextBlock
@@ -350,6 +330,20 @@ namespace Laba1_2
 
         private void iconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+
+
+
+
+
+        }
+
+        private void _iconName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+
+
+
 
         }
     } 
