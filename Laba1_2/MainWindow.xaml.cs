@@ -31,8 +31,9 @@ namespace Laba1_2
         public MainWindow()
         {
             InitializeComponent();
-            UpdateEnemyListBox();
             enemyList = new CEnemyTemplateList();
+            UpdateEnemyListBox();
+            
             InitializeIconSystem();
             Listof.SelectionChanged += Listof_SelectionChanged;
         }
@@ -40,7 +41,7 @@ namespace Laba1_2
         private void InitializeIconSystem()
         {
 
-            iniicon = new CIconList(128, 128, 3, 10); // ИЗМЕНИЛ: 3 колонки вместо 1
+            iniicon = new CIconList(128, 128, 3, 10); 
 
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string imagesPath = System.IO.Path.Combine(basePath, "icons/Monsters");
@@ -68,7 +69,7 @@ namespace Laba1_2
         }
         public void DisplayEnemyInfo(CEnemyTemplate enemy)
         {
-            if (enemy == null) return; // ДОБАВИЛ: проверку на null
+            if (enemy == null) return; 
 
             _name.Text = enemy.Name;
             _iconName.Text = enemy.IconName;
@@ -81,11 +82,11 @@ namespace Laba1_2
             string icon_name = enemy.IconName.Replace(".png", "");
             CIcon iconnn = iniicon.findByName(icon_name);
 
-            scene.Children.Clear();
+            //scene.Children.Clear();
 
             if (iconnn != null)
             {
-                Rectangle displayIcon = new Rectangle // ИЗМЕНИЛ: создаем новый Rectangle
+                Rectangle displayIcon = new Rectangle 
                 {
                     Width = iconnn.GetIcon().Width,
                     Height = iconnn.GetIcon().Height,
@@ -93,31 +94,31 @@ namespace Laba1_2
                     Stroke = Brushes.Black,
                     StrokeThickness = 1
                 };
-                Canvas.SetLeft(displayIcon, 50); // ДОБАВИЛ: позиционирование
+                Canvas.SetLeft(displayIcon, 50); 
                 Canvas.SetTop(displayIcon, 50);
-                scene.Children.Add(displayIcon);
+                //scene.Children.Add(displayIcon);
             }
 
 
 
         }
 
-        //static void TestSerialization()
-        //{
-        //    // Создаем список экземпляров класса Person
-        //    List<Person> people = new List<Person>();
-        //    people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
-        //    people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
-        //    people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
+        static void TestSerialization()
+        {
+            // Создаем список экземпляров класса Person
+            List<Person> people = new List<Person>();
+            people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
+            people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
+            people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
 
-        //    // Сериализация списка в JSON
-        //    string jsonString = JsonSerializer.Serialize(people);
+            // Сериализация списка в JSON
+            string jsonString = JsonSerializer.Serialize(people);
 
-        //    // Сохранение JSON в файл
-        //    File.WriteAllText("people.json", jsonString);
+            // Сохранение JSON в файл
+            File.WriteAllText("people.json", jsonString);
 
-        //    Console.WriteLine("Сериализация завершена. Файл people.json создан.");
-        //}
+            Console.WriteLine("Сериализация завершена. Файл people.json создан.");
+        }
 
         private void btvRemove_Click(object sender, RoutedEventArgs e)
         {
@@ -261,7 +262,7 @@ namespace Laba1_2
             _gold.Text = "0";
             _goldMod.Text = "0";
             _spawn.Text = "0";
-            scene.Children.Clear();
+            //scene.Children.Clear();
         }
 
         private void Listof_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -272,57 +273,31 @@ namespace Laba1_2
             }
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+       
+
+        private void DisplayIcons() 
         {
-            if (iniicon == null) return;
-
-            System.Windows.Point mousePosition = Mouse.GetPosition(scene); // Уже правильный тип
-            CIcon clickedIcon = iniicon.IsMouseOver(mousePosition);
-
-            if (clickedIcon != null)
-            {
-                string iconName = clickedIcon.Name;
-                _iconName.Text = iconName + ".png";
-
-              
-
-                Rectangle displayIcon = new Rectangle
-                {
-                    Width = clickedIcon.GetIcon().Width,
-                    Height = clickedIcon.GetIcon().Height,
-                    Fill = clickedIcon.GetIcon().Fill,
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 1
-                };
-                Canvas.SetLeft(displayIcon, 50);
-                Canvas.SetTop(displayIcon, 50);
-                scene.Children.Add(displayIcon);
-            }
-        }
-
-
-        private void DisplayIcons() // ДОБАВИЛ: отсутствующий метод
-        {
-            scene.Children.Clear();
             var icons = iniicon.GetIcons();
             foreach (var icon in icons)
             {
-                var iconRect = icon.GetIcon();
-                scene.Children.Add(iconRect);
+                Image image = new Image();
+                image.Source = new BitmapImage(new Uri(icon.Path));
+                iconsListBox.Items.Add(image);
+            }
+        }
+         private void EnemyIcons()
+        {
+            var icons = iniicon.GetIcons();
+            foreach (var icon in icons)
+            {
+                Image imagee = new Image();
+                imagee.Source = new BitmapImage(new Uri(icon.Path));
+                enemyListBox.Items.Add(imagee);
             }
         }
 
         private void LoadIcons()
         {
-            // Проверяем доступность Canvas
-            if (scene == null)
-            {
-                MessageBox.Show("Canvas 'scene' не найден!");
-                return;
-            }
-
-            // Очищаем Canvas
-            scene.Children.Clear();
 
             // Создаем простые цветные иконки
             string[] iconNames = { "Sword", "Axe", "Bow", "Staff" };
@@ -349,7 +324,7 @@ namespace Laba1_2
                 Canvas.SetTop(icon, y);
 
                 // Добавляем на Canvas
-                scene.Children.Add(icon);
+                //scene.Children.Add(icon);
 
                 // Добавляем текст с названием
                 TextBlock text = new TextBlock
@@ -364,13 +339,18 @@ namespace Laba1_2
                 Canvas.SetLeft(text, x);
                 Canvas.SetTop(text, y + 55);
 
-                scene.Children.Add(text);
+                //scene.Children.Add(text);
 
                 // Сдвигаем позицию для следующей иконки
                 x += 60;
             }
 
             MessageBox.Show($"Добавлено {iconNames.Length} иконок на Canvas!");
+        }
+
+        private void iconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     } 
 }

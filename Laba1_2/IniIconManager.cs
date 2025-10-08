@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Laba1_2
-//{
-//    internal class IniIconManager
-//    {
+{
+    internal class IniIconManager
+    {
 
 
-//    }
-//}
+    }
+}

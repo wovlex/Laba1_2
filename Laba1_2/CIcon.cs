@@ -18,18 +18,23 @@ namespace Laba1_2
         private Rectangle icon;
         private int width;
         private int height;
+        string path;
 
         public Point Position => position;
         public string Name => name;
         public Rectangle GetIcon() => icon;
 
+        public string Path => path;
         public CIcon(int iconWidth, int iconHeight, string imagePath, Point pos)
         {
             width = iconWidth;
             height = iconHeight;
             position = pos;
+            path = imagePath;
             CreateIcon(iconWidth, iconHeight, imagePath);
         }
+
+
 
         public void CreateIcon(int iconWidth, int iconHeight, string imagePath)
         {
