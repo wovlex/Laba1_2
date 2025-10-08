@@ -143,6 +143,8 @@ namespace Laba1_2
                     double.Parse(_spawn.Text)
                 );
 
+
+
                 enemyList.AddEnemy(enemy);
                 UpdateEnemyListBox();
                 ClearForm();
