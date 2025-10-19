@@ -19,6 +19,8 @@ namespace Laba1_2
         private int width;
         private int height;
         string path;
+        private string imagePath;
+
 
         public Point Position => position;
         public string Name => name;
@@ -40,7 +42,7 @@ namespace Laba1_2
         {
             name = System.IO.Path.GetFileNameWithoutExtension(imagePath);
             icon = new Rectangle();
-
+            this.imagePath = imagePath;
             // Установка цвета линии обводки
             icon.Stroke = Brushes.Black;
             icon.StrokeThickness = 1;

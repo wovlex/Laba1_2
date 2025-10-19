@@ -85,6 +85,7 @@ namespace Laba1_2
 
             if (iconnn != null)
             {
+                
                 enemyImage.Source = new BitmapImage(new Uri(iconnn.Path));
 
             }
@@ -92,23 +93,6 @@ namespace Laba1_2
 
 
         }
-
-        //static void TestSerialization()
-        //{
-        //    // Создаем список экземпляров класса Person
-        //    List<Person> people = new List<Person>();
-        //    people.Add(new Person(20, "Ivan", "Ivanov", 177.65));
-        //    people.Add(new Person(30, "Aleksey", "Alekseevich", 166.99));
-        //    people.Add(new Person(25, "Oleg", "Olegovich", 180.01));
-
-        //    // Сериализация списка в JSON
-        //    string jsonString = JsonSerializer.Serialize(people);
-
-        //    // Сохранение JSON в файл
-        //    File.WriteAllText("people.json", jsonString);
-
-        //    Console.WriteLine("Сериализация завершена. Файл people.json создан.");
-        //}
 
         private void btvRemove_Click(object sender, RoutedEventArgs e)
         {
@@ -161,12 +145,11 @@ namespace Laba1_2
             OpenFileDialog dlg = new OpenFileDialog();
             //настройка параметров диалога
             dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".txt"; // Default file extension
-            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+            dlg.DefaultExt = ".json"; // Default file extension
+            dlg.Filter = "Text documents (.json)|*.json"; // Filter files by extension
                                                         //вызов диалога
             dlg.ShowDialog();
             //получение выбранного имени файла
-            //lb1.Content = dlg.FileName;
 
         }
 
@@ -251,7 +234,7 @@ namespace Laba1_2
             _gold.Text = "0";
             _goldMod.Text = "0";
             _spawn.Text = "0";
-            //scene.Children.Clear();
+         
         }
 
         private void Listof_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -272,18 +255,10 @@ namespace Laba1_2
                 Image image = new Image();
                 image.Source = new BitmapImage(new Uri(icon.Path));
                 iconsListBox.Items.Add(image);
+                
             }
         }
-         public void EnemyIcons()
-        {
-            var icons = iniicon.GetIcons();
-            foreach (var icon in icons)
-            {
-                Image imagee = new Image();
-                imagee.Source = new BitmapImage(new Uri(icon.Path));
-                //enemyListBox.Items.Add(imagee);
-            }
-        }
+     
 
         private void LoadIcons()
         {
@@ -295,6 +270,14 @@ namespace Laba1_2
 
             for (int i = 0; i < iconNames.Length; i++)
             {
+                Image img = new Image
+                {
+                    Width = 50,
+                    Height = 50,
+                    Source = new BitmapImage(new Uri("путь_к_иконке")), // здесь у вас должен быть путь к изображению
+                    Tag = iconNames[i] // сохраняем название
+                };
+                iconsListBox.Items.Add(img);
                 // Создаем прямоугольник как иконку
                 Rectangle icon = new Rectangle
                 {
@@ -321,20 +304,27 @@ namespace Laba1_2
                 Canvas.SetLeft(text, x);
                 Canvas.SetTop(text, y + 55);
 
-                //scene.Children.Add(text);
+                
 
                 // Сдвигаем позицию для следующей иконки
                 x += 60;
             }
 
-            MessageBox.Show($"Добавлено {iconNames.Length} иконок на Canvas!");
+          
         }
 
         private void iconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
 
-
+            if (iconsListBox.SelectedItem is Image selectedImage)
+            {
+                enemyImage.Source = selectedImage.Source;
+                if (selectedImage.Tag != null)
+                {
+                    _iconName.Text = selectedImage.Tag.ToString();
+                }
+            }
 
 
 
