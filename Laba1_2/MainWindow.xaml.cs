@@ -143,6 +143,7 @@ namespace Laba1_2
         {
             //создание диалога
             OpenFileDialog dlg = new OpenFileDialog();
+
             //настройка параметров диалога
             dlg.FileName = "Document"; // Default file name
             dlg.DefaultExt = ".json"; // Default file extension
