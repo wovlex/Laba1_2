@@ -332,6 +332,7 @@ namespace Laba1_2
         }
 
         private void _iconName_TextChanged(object sender, TextChangedEventArgs e)
+
         {
 
 
