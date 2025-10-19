@@ -146,10 +146,22 @@ namespace Laba1_2
             //настройка параметров диалога
             dlg.FileName = "Document"; // Default file name
             dlg.DefaultExt = ".json"; // Default file extension
-            dlg.Filter = "Text documents (.json)|*.json"; // Filter files by extension
-                                                        //вызов диалога
-            dlg.ShowDialog();
-            //получение выбранного имени файла
+            dlg.Filter = "JSON files (.json)|*.json"; // Filter files by extension
+                                                      //вызов диалога
+            if (dlg.ShowDialog() == true)
+            {
+                try
+                {
+                    // Загружаем список противников
+                    enemyList.LoadFromFile(dlg.FileName);
+                    UpdateEnemyListBox();
+                    
+                }
+                catch (Exception ex)
+                {
+                   
+                }
+            }
 
         }
 
@@ -160,12 +172,22 @@ namespace Laba1_2
                 SaveFileDialog dlg = new SaveFileDialog();
                 //настройка параметров диалога
                 dlg.FileName = "Document"; // Default file name
-                dlg.DefaultExt = ".txt"; // Default file extension
-                dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
-                                                            //вызов диалога
-                dlg.ShowDialog();
-                //получение выбранного имени файла
-                // lb1.Content = dlg.FileName;
+                dlg.DefaultExt = ".json"; // Default file extension
+                dlg.Filter = "JSON files (.json)|*.json"; // Filter files by extension
+                                                          //вызов диалога
+                if (dlg.ShowDialog() == true)
+                {
+                    try
+                    {
+                        // Сохраняем список противников
+                        enemyList.SaveToFile(dlg.FileName);
+                       
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                    }
+                }
             }
         }
 
