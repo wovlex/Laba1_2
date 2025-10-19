@@ -254,6 +254,7 @@ namespace Laba1_2
             {
                 Image image = new Image();
                 image.Source = new BitmapImage(new Uri(icon.Path));
+                image.Tag = icon.Name;
                 iconsListBox.Items.Add(image);
                 
             }
